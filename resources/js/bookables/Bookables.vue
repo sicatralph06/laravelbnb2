@@ -10,7 +10,7 @@
                     :key="'row'+row+column"
                 >
                     <!-- 2nd assign values to props -->
-                     <bookable-list-item :item-title="bookable.title" :item-content="bookable.content" :price="1000"></bookable-list-item>
+                     <bookable-list-item :item-title="bookable.title" :item-description="bookable.description" :price="1000"></bookable-list-item>
                 </div>
 
                 <div class="col" v-for="p in placeholdersInRow(row)" :key="'placeholder'+row+p"></div>
@@ -60,42 +60,15 @@ export default {
         }).then(result => console.log(`Success ${result}`))
         .catch(result => console.log(`Error ${result}`));
 
-        console.log(p)
+        console.log(p);
 
-        setTimeout(() => {
-            this.bookables = [
-                {
-                    title: "Cheap Villa!",
-                    content: "A very cheap villa"
-                },
-                {
-                    title: "Cheap Villa 2",
-                    content: "A very cheap villa 2"
-                },
-                 {
-                    title: "Cheap Villa 2",
-                    content: "A very cheap villa 2"
-                },
-                 {
-                    title: "Cheap Villa 2",
-                    content: "A very cheap villa 2"
-                },
-                 {
-                    title: "Cheap Villa 2",
-                    content: "A very cheap villa 2"
-                },
-                 {
-                    title: "Cheap Villa 2",
-                    content: "A very cheap villa 2"
-                },
-                 {
-                    title: "Cheap Villa 2",
-                    content: "A very cheap villa 2"
-                },
-            ];
-            
+        const request = axios.get("/api/bookables")
+        .then(response => {
+            this.bookables = response.data
             this.loading = false;
-        }, 2000);
+        });
+
+        this.loading = false
     },
     
 }

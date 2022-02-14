@@ -1921,7 +1921,7 @@ __webpack_require__.r(__webpack_exports__);
   //1st assign props
   props: {
     "itemTitle": String,
-    "itemContent": String,
+    "itemDescription": String,
     "price": Number
   }
 });
@@ -2000,31 +2000,11 @@ __webpack_require__.r(__webpack_exports__);
       return console.log("Error ".concat(result));
     });
     console.log(p);
-    setTimeout(function () {
-      _this.bookables = [{
-        title: "Cheap Villa!",
-        content: "A very cheap villa"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }];
+    var request = axios.get("/api/bookables").then(function (response) {
+      _this.bookables = response.data;
       _this.loading = false;
-    }, 2000);
+    });
+    this.loading = false;
   }
 });
 
@@ -37706,7 +37686,9 @@ var render = function () {
     _c("div", { staticClass: "card-body" }, [
       _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.itemTitle))]),
       _vm._v(" "),
-      _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.itemContent))]),
+      _c("p", { staticClass: "card-text" }, [
+        _vm._v(_vm._s(_vm.itemDescription)),
+      ]),
     ]),
   ])
 }
@@ -37750,7 +37732,7 @@ var render = function () {
                       _c("bookable-list-item", {
                         attrs: {
                           "item-title": bookable.title,
-                          "item-content": bookable.content,
+                          "item-description": bookable.description,
                           price: 1000,
                         },
                       }),
