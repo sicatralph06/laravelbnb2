@@ -1,9 +1,21 @@
 <template>
     <div>
-        <!-- 2nd assign values to props -->
-        <bookable-list-item :item-title="bookable1.title" :item-content="bookable1.content" :price="1000"></bookable-list-item>
-        <bookable-list-item :item-title="bookable2.title" :item-content="bookable2.content" :price="1500"></bookable-list-item>
-        <bookable-list-item :item-title="bookable3.title" :item-content="bookable3.content" :price="1500"></bookable-list-item>
+        <div v-if="loading">
+            Data is loading...
+        </div>
+        <div v-else>
+            <div class="row mb-4" v-for="row in rows" :key="'row'+row">
+                <div class="col" 
+                    v-for="(bookable, column) in bookablesInRow(row)" 
+                    :key="'row'+row+column"
+                >
+                    <!-- 2nd assign values to props -->
+                     <bookable-list-item :item-title="bookable.title" :item-content="bookable.content" :price="1000"></bookable-list-item>
+                </div>
+
+                <div class="col" v-for="p in placeholdersInRow(row)" :key="'placeholder'+row+p"></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -13,56 +25,68 @@ export default {
     components: {
         BookableListItem
     },
-    /* beforeCreate() {
-        console.log('before create');
-    }, */
     data() {
         return {
-            bookable1: null,
-            bookable2: null
+            bookables: null,
+            loading: false,
+            columns: 3
         };
     },
     
-    created() {
-        console.log('created');
-        console.log(this.bookable1);
-        console.log(this.bookable2);
-
-        setTimeout(() => {
-            this.bookable1 = {
-                title: "Cheap Villa!",
-                content: "A very cheap villa"
-            };
-            this.bookable2 = {
-                title: "Cheap Villa 2",
-                content: "A very cheap villa 2"
-            };
-            this.bookable3 = {
-                title: "Expensive Villa ",
-                content: "A very cheap villa 3"
-            };
-        }, 5000);
-
-        setTimeout(() => {
-            console.log("First change");
-            this.bookable1.title = "You will see this!";
-        }, 8000);
-        setTimeout(() => {
-            console.log("Second change");
-            this.bookable3.title = "You wont see this!";
-        }, 12000);
+    computed: {
+        rows() {
+            return this.bookables == null 
+            ? 0  
+            :Math.ceil(this.bookables.length / this.columns);
+        }
     },
-    /* beforeMount() {
-        console.log('before mount');
-    }, */
-    /* mounted() {
-        console.log('mounted')
-    }, */
-    /* beforeDestroy() {
-        console.log("before destroy");
-    }, */
-    /* destroyed() {
-        console.log("destroyed");
-    }, */
+
+    methods: {
+        bookablesInRow(row) {
+            return this.bookables.slice((row-1)*this.columns, row*this.columns)
+        },
+        placeholdersInRow(row) {
+            return this.columns - this.bookablesInRow(row).length;
+        }
+    },
+
+    created() {
+        this.loading = true;
+        setTimeout(() => {
+            this.bookables = [
+                {
+                    title: "Cheap Villa!",
+                    content: "A very cheap villa"
+                },
+                {
+                    title: "Cheap Villa 2",
+                    content: "A very cheap villa 2"
+                },
+                 {
+                    title: "Cheap Villa 2",
+                    content: "A very cheap villa 2"
+                },
+                 {
+                    title: "Cheap Villa 2",
+                    content: "A very cheap villa 2"
+                },
+                 {
+                    title: "Cheap Villa 2",
+                    content: "A very cheap villa 2"
+                },
+                 {
+                    title: "Cheap Villa 2",
+                    content: "A very cheap villa 2"
+                },
+                 {
+                    title: "Cheap Villa 2",
+                    content: "A very cheap villa 2"
+                },
+            ];
+            
+            this.loading = false;
+        }, 2000);
+    },
+    
 }
 </script>
