@@ -12,6 +12,9 @@ export default {
     mounted() {
         console.log(this.itemTitle);
         //this.itemTitle = "NEW TITLE";
+        /* setTimeout(() => {
+            this.itemTitle = "New Title";
+        }, 1500); */
     }
 }
 </script>
