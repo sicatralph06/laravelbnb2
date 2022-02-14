@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card w-100">
         <div class="card-body">
             <!-- 3rd call data from parent component -->
             <h5 class="card-title">{{itemTitle}}</h5>
