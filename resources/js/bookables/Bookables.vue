@@ -10,7 +10,12 @@
                     :key="'row'+row+column"
                 >
                     <!-- 2nd assign values to props -->
-                     <bookable-list-item :item-title="bookable.title" :item-description="bookable.description" :price="1000"></bookable-list-item>
+                     <bookable-list-item 
+                        :title="bookable.title" 
+                        :description="bookable.description" 
+                        :id="bookable.id"
+                    >
+                     </bookable-list-item>
                 </div>
 
                 <div class="col" v-for="p in placeholdersInRow(row)" :key="'placeholder'+row+p"></div>
