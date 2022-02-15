@@ -11,9 +11,7 @@
                 >
                     <!-- 2nd assign values to props -->
                      <bookable-list-item 
-                        :title="bookable.title" 
-                        :description="bookable.description" 
-                        :id="bookable.id"
+                        v-bind="bookable"
                     >
                      </bookable-list-item>
                 </div>
